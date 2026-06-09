@@ -199,6 +199,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 0;
   white-space: nowrap;
   animation: fadeUp 0.85s ease-out both;
   animation-delay: 0.05s;
@@ -208,17 +209,21 @@ body {
   color: var(--text);
   transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform;
+  /* trailing letter-spacing compensation */
+  margin-right: 0.06em;
 }
 
-/* x-wrapper: sized by JS via CSS variable, falls back to clamp */
+/* x-wrapper width = natural X glyph width only.
+   Canvas is 2.4× this and bleeds out via overflow:visible. */
 .x-wrapper {
   position: relative;
-  width: clamp(80px, 11vw, 220px);
-  height: clamp(80px, 11vw, 220px);
+  width: 0.72em;
+  height: 1em;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
+  overflow: visible;
 }
 
 .x-letter {
@@ -227,6 +232,7 @@ body {
   position: relative;
   z-index: 10;
   color: var(--primary);
+  line-height: 1;
   transition:
     opacity 0.9s ease,
     transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
@@ -783,8 +789,5 @@ footer {
   .brand {
     font-size: clamp(2rem, 9vw, 3rem);
   }
-  .x-wrapper {
-    width: clamp(60px, 9vw, 100px);
-    height: clamp(60px, 9vw, 100px);
-  }
+  /* x-wrapper is 0.72em so it scales with the brand font automatically */
 }
