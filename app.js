@@ -1,194 +1,197 @@
-const observer = new IntersectionObserver(
+// ============================================================
+// Scroll reveal — staggered cards
+// ============================================================
+const revealObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add("visible");
+        revealObserver.unobserve(entry.target); // fire once
       }
     });
   },
-  {
-    threshold: 0.15,
-  },
+  { threshold: 0.1, rootMargin: "0px 0px -40px 0px" },
 );
 
-document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+document
+  .querySelectorAll(".reveal-card")
+  .forEach((el) => revealObserver.observe(el));
 
+// ============================================================
+// Cursor glow (desktop only)
+// ============================================================
 const glow = document.querySelector(".cursor-glow");
+if (window.matchMedia("(pointer: fine)").matches) {
+  window.addEventListener("mousemove", (e) => {
+    glow.style.left = e.clientX + "px";
+    glow.style.top = e.clientY + "px";
+  });
+} else {
+  glow.style.display = "none";
+}
 
-window.addEventListener("mousemove", (e) => {
-  glow.style.left = e.clientX + "px";
-
-  glow.style.top = e.clientY + "px";
-});
-
-
-// Particles animation
+// ============================================================
+// AmoebaX Particle Animation
+// ============================================================
 const canvas = document.getElementById("particleCanvas");
 
 if (canvas) {
+  const xWrapper = canvas.closest(".x-wrapper");
 
-    const size = 220;
+  // Read the wrapper's rendered size — use offsetWidth for integer pixels
+  const wrapperSize = xWrapper ? xWrapper.offsetWidth : 160;
+  const C = Math.max(wrapperSize, 80); // canvas dimension
 
-    canvas.width = size;
-    canvas.height = size;
+  // Set canvas resolution to match the wrapper exactly
+  canvas.width = C;
+  canvas.height = C;
+  canvas.style.width = C + "px";
+  canvas.style.height = C + "px";
 
-    const ctx = canvas.getContext("2d");
+  const ctx = canvas.getContext("2d");
+  const cx = C / 2; // center
+  const cy = C / 2;
 
-    const centerX = size / 2;
-    const centerY = size / 2;
+  // Scale factor: the original design was sized for a 160px wrapper
+  const scale = C / 160;
 
-    // Hidden canvas used to generate X coordinates
+  const colors = [
+    "#ffffff",
+    "#ffffff",
+    "#ffffff",
+    "#00ffd0",
+    "#33e6ff",
+    "#7f6fff",
+  ];
 
-    const targetCanvas =
-        document.createElement("canvas");
+  const amoebaText = document.getElementById("amoebaText");
+  const xLetter = document.querySelector(".x-letter");
 
-    targetCanvas.width = size;
-    targetCanvas.height = size;
+  // ── Build X shape at correct scale ──────────────────────────
+  const xGlyphSize = Math.round(160 * scale);
+  const tCanvas = document.createElement("canvas");
+  tCanvas.width = xGlyphSize;
+  tCanvas.height = xGlyphSize;
+  const tCtx = tCanvas.getContext("2d");
+  tCtx.fillStyle = "white";
+  tCtx.font = `bold ${Math.round(124 * scale)}px Inter, system-ui`;
+  tCtx.textAlign = "center";
+  tCtx.textBaseline = "middle";
+  tCtx.fillText("X", xGlyphSize / 2, xGlyphSize / 2);
 
-    const targetCtx =
-        targetCanvas.getContext("2d");
+  const imageData = tCtx.getImageData(0, 0, xGlyphSize, xGlyphSize);
+  const targets = [];
+  const step = Math.max(1, Math.round(2 * scale));
 
-    targetCtx.fillStyle = "white";
-
-    targetCtx.font =
-        "bold 170px Inter, sans-serif";
-
-    targetCtx.textAlign = "center";
-    targetCtx.textBaseline = "middle";
-
-    targetCtx.fillText(
-        "X",
-        centerX,
-        centerY
-    );
-
-    const imageData =
-        targetCtx.getImageData(
-            0,
-            0,
-            size,
-            size
-        );
-
-    const targets = [];
-
-    for (let y = 0; y < size; y += 4) {
-
-        for (let x = 0; x < size; x += 4) {
-
-            const index =
-                (y * size + x) * 4;
-
-            if (
-                imageData.data[index + 3] > 100
-            ) {
-                targets.push({
-                    x,
-                    y
-                });
-            }
-        }
-    }
-
-    const particles =
-        targets.map(target => ({
-
-            // spawn outside center area
-
-            x:
-                Math.random() > 0.5
-                    ? -50
-                    : size + 50,
-
-            y:
-                Math.random() * size,
-
-            targetX:
-                target.x,
-
-            targetY:
-                target.y,
-
-            size:
-                Math.random() * 1.5 + 0.5,
-
-            alpha: 1
-        }));
-
-    let startTime =
-        performance.now();
-
-    let xRevealed = false;
-
-    function animate(now) {
-
-        const elapsed =
-            now - startTime;
-
-        ctx.clearRect(
-            0,
-            0,
-            size,
-            size
-        );
-
-        particles.forEach(p => {
-
-            p.x +=
-                (p.targetX - p.x)
-                * 0.06;
-
-            p.y +=
-                (p.targetY - p.y)
-                * 0.06;
-
-            if (elapsed > 2200) {
-
-                p.alpha -= 0.02;
-            }
-
-            ctx.globalAlpha =
-                Math.max(
-                    p.alpha,
-                    0
-                );
-
-            ctx.fillStyle =
-                "#00e6b8";
-
-            // tiny square particles
-
-            ctx.fillRect(
-                p.x,
-                p.y,
-                p.size,
-                p.size
-            );
+  for (let y = 0; y < xGlyphSize; y += step) {
+    for (let x = 0; x < xGlyphSize; x += step) {
+      const i = (y * xGlyphSize + x) * 4;
+      if (imageData.data[i + 3] > 100) {
+        targets.push({
+          x: cx + x - xGlyphSize / 2,
+          y: cy + y - xGlyphSize / 2,
         });
+      }
+    }
+  }
 
-        ctx.globalAlpha = 1;
+  // ── Spawn particles ──────────────────────────────────────────
+  const baseRadius = 90 * scale;
+  const particles = [];
 
-        if (
-            elapsed > 1800 &&
-            !xRevealed
-        ) {
+  targets.forEach((target) => {
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.acos(2 * Math.random() - 1);
+    const r = baseRadius * (0.85 + Math.random() * 0.3);
 
-            document
-                .querySelector(".x-letter")
-                .style.opacity = "1";
+    particles.push({
+      theta,
+      phi,
+      radius: r,
+      rotationSpeed: 0.004 + Math.random() * 0.006,
+      x: cx,
+      y: cy,
+      depth: 1,
+      targetX: target.x,
+      targetY: target.y,
+      baseSize: (Math.random() * 0.5 + 0.2) * scale,
+      size: 0.3 * scale,
+      alpha: 1,
+      color: colors[Math.floor(Math.random() * colors.length)],
+    });
+  });
 
-            xRevealed = true;
-        }
+  const start = performance.now();
+  let slideDone = false;
+  let xDone = false;
 
-        if (elapsed < 3500) {
+  function animate(now) {
+    const t = now - start;
+    ctx.clearRect(0, 0, C, C);
 
-            requestAnimationFrame(
-                animate
-            );
-        }
+    for (const p of particles) {
+      // Phase 1 — rotating sphere (0–2.5 s)
+      if (t < 2500) {
+        p.theta += p.rotationSpeed;
+        const x3 = p.radius * Math.sin(p.phi) * Math.cos(p.theta);
+        const y3 = p.radius * Math.cos(p.phi);
+        const z3 = p.radius * Math.sin(p.phi) * Math.sin(p.theta);
+        const persp = 900 / (900 + z3);
+        p.depth = persp;
+        p.x = cx + x3 * persp;
+        p.y = cy + y3 * persp;
+        p.size = Math.max(0.1 * scale, p.baseSize * persp * 1.2);
+      }
+      // Phase 2 — implosion (2.5–4.5 s)
+      else if (t < 4500) {
+        p.theta += 0.18;
+        p.radius *= 0.979;
+        const x3 = p.radius * Math.sin(p.phi) * Math.cos(p.theta);
+        const y3 = p.radius * Math.cos(p.phi);
+        const z3 = p.radius * Math.sin(p.phi) * Math.sin(p.theta);
+        const persp = 900 / (900 + z3);
+        p.depth = persp;
+        p.x = cx + x3 * persp;
+        p.y = cy + y3 * persp;
+      }
+      // Phase 3 — converge to X (4.5 s+)
+      else {
+        p.x += (p.targetX - p.x) * 0.11;
+        p.y += (p.targetY - p.y) * 0.11;
+        p.depth = 1;
+      }
+
+      // Fade out (6.2 s+)
+      if (t > 6200) p.alpha = Math.max(0, p.alpha - 0.015);
+
+      ctx.globalAlpha = Math.max(0, p.alpha) * p.depth;
+      ctx.fillStyle = p.color;
+      ctx.shadowBlur = 14;
+      ctx.shadowColor = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, Math.max(0.1, p.size), 0, Math.PI * 2);
+      ctx.fill();
     }
 
-    requestAnimationFrame(
-        animate
-    );
+    ctx.globalAlpha = 1;
+    ctx.shadowBlur = 0;
+
+    // Slide "Amoeba" left — distance = half the wrapper width
+    if (t > 4500 && !slideDone) {
+      const slide = Math.round(C * 0.52);
+      amoebaText.style.transform = `translateX(-${slide}px)`;
+      slideDone = true;
+    }
+
+    // Reveal X letter
+    if (t > 5100 && !xDone) {
+      xLetter.style.opacity = "1";
+      xLetter.style.transform = "scale(1)";
+      xDone = true;
+    }
+
+    if (t < 8000) requestAnimationFrame(animate);
+  }
+
+  requestAnimationFrame(animate);
 }

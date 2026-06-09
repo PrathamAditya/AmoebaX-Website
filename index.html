@@ -4,7 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AmoebaX</title>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
 
@@ -14,92 +19,257 @@
         <span class="logo-dot"></span>
         AmoebaX
       </a>
-
       <div class="nav-links">
         <a href="#philosophy">Philosophy</a>
         <a href="#projects">Projects</a>
+        <a href="#stack">Stack</a>
         <a href="#about">About</a>
+        <a href="#contact" class="nav-cta">Get in Touch</a>
       </div>
     </nav>
+
     <div class="noise"></div>
 
     <main>
-      <section class="hero reveal">
+      <!-- ======================== HERO ======================== -->
+      <section class="hero">
         <div class="badge">Building systems that evolve</div>
-        <div class="hero-particles"></div>
 
         <h1 class="brand">
-          <span class="amoeba">Amoeba</span>
+          <span id="amoebaText">Amoeba</span>
           <span class="x-wrapper">
             <canvas id="particleCanvas"></canvas>
-            <span class="x-burst"></span>
             <span class="x-letter">X</span>
           </span>
         </h1>
 
-        <p>
+        <p class="hero-sub">
           Building adaptive software systems, AI infrastructure, and open-source
           technology designed to evolve.
         </p>
 
         <div class="actions">
-          <a href="#" class="btn primary"> Explore Projects </a>
-
-          <a href="#" class="btn secondary"> GitHub </a>
+          <a href="#projects" class="btn primary">Explore Projects</a>
+          <a href="https://github.com" target="_blank" class="btn secondary"
+            >GitHub ↗</a
+          >
         </div>
       </section>
 
-      <section id="philosophy" class="section reveal">
-        <h2>Philosophy</h2>
-
-        <div class="grid">
-          <article class="card">
+      <!-- ======================== PHILOSOPHY ======================== -->
+      <section id="philosophy" class="section">
+        <div class="section-label">01 — Philosophy</div>
+        <h2>The principles behind the work</h2>
+        <div class="grid three-col">
+          <article class="card reveal-card">
+            <div class="card-icon">◎</div>
             <h3>Adapt</h3>
-            <p>Software should evolve with changing needs.</p>
-          </article>
-
-          <article class="card">
-            <h3>Learn</h3>
-            <p>Systems improve through feedback and iteration.</p>
-          </article>
-
-          <article class="card">
-            <h3>Evolve</h3>
-            <p>Every project is an experiment toward something bigger.</p>
-          </article>
-        </div>
-      </section>
-
-      <section id="projects" class="section reveal">
-        <h2>Projects</h2>
-
-        <div class="grid">
-          <article class="card project-card">
-            <h3>Execution Fabric</h3>
-
             <p>
-              A low-level execution runtime designed to grow into a distributed
-              workflow engine.
+              Software should flex with changing needs, not resist them. Rigid
+              systems break; adaptive systems evolve.
             </p>
-
-            <span>In Development</span>
+          </article>
+          <article class="card reveal-card">
+            <div class="card-icon">⟳</div>
+            <h3>Learn</h3>
+            <p>
+              Systems improve through feedback and iteration. Every failure is
+              data; every run is a lesson.
+            </p>
+          </article>
+          <article class="card reveal-card">
+            <div class="card-icon">↑</div>
+            <h3>Evolve</h3>
+            <p>
+              Every project is an experiment toward something bigger. Ship,
+              measure, evolve — then repeat.
+            </p>
           </article>
         </div>
       </section>
 
-      <section id="about" class="section reveal">
-        <h2>About</h2>
+      <!-- ======================== PROJECTS ======================== -->
+      <section id="projects" class="section">
+        <div class="section-label">02 — Projects</div>
+        <h2>What we're building</h2>
+        <div class="grid two-col">
+          <article class="card project-card reveal-card featured">
+            <div class="project-meta">
+              <span class="status active">● Active</span>
+              <span class="project-type">Execution Runtime</span>
+            </div>
+            <h3>Execution Fabric</h3>
+            <p>
+              A low-level execution runtime architected to grow into a fully
+              distributed workflow engine. Handles scheduling, state, and
+              failure recovery at the primitive level — so higher-order systems
+              don't have to.
+            </p>
+            <div class="project-tags">
+              <span class="tag">Rust</span>
+              <span class="tag">Distributed</span>
+              <span class="tag">Workflows</span>
+            </div>
+            <a href="#" class="project-link">View Repo ↗</a>
+          </article>
 
-        <p class="about-text">
-          AmoebaX explores infrastructure, execution systems, artificial
-          intelligence, and open-source software.
-        </p>
+          <article class="card project-card reveal-card featured">
+            <div class="project-meta">
+              <span class="status active">● Active</span>
+              <span class="project-type">AI / Language</span>
+            </div>
+            <h3>Language Model</h3>
+            <p>
+              An experimental language model project exploring inference
+              optimization, fine-tuning pipelines, and evaluation frameworks.
+              Built to understand how language and reasoning systems work from
+              the ground up.
+            </p>
+            <div class="project-tags">
+              <span class="tag">Python</span>
+              <span class="tag">ML</span>
+              <span class="tag">Inference</span>
+            </div>
+            <a href="#" class="project-link">View Repo ↗</a>
+          </article>
+
+          <article class="card project-card reveal-card">
+            <div class="project-meta">
+              <span class="status planned">◌ Planned</span>
+              <span class="project-type">Tooling</span>
+            </div>
+            <h3>Amoeba CLI</h3>
+            <p>
+              A developer CLI for spinning up, monitoring, and introspecting
+              AmoebaX infrastructure — from local dev to production clusters.
+            </p>
+            <div class="project-tags">
+              <span class="tag">CLI</span>
+              <span class="tag">DevTools</span>
+            </div>
+            <a href="#" class="project-link">Coming Soon</a>
+          </article>
+
+          <article class="card project-card reveal-card">
+            <div class="project-meta">
+              <span class="status planned">◌ Planned</span>
+              <span class="project-type">Observability</span>
+            </div>
+            <h3>Signal</h3>
+            <p>
+              Lightweight observability layer designed for adaptive systems.
+              Traces execution paths, surfaces anomalies, and feeds data back
+              into the learning loop.
+            </p>
+            <div class="project-tags">
+              <span class="tag">Telemetry</span>
+              <span class="tag">Tracing</span>
+            </div>
+            <a href="#" class="project-link">Coming Soon</a>
+          </article>
+        </div>
+      </section>
+
+      <!-- ======================== STACK ======================== -->
+      <section id="stack" class="section">
+        <div class="section-label">03 — Capabilities</div>
+        <h2>What we work with</h2>
+        <div class="stack-grid">
+          <div class="stack-group reveal-card">
+            <div class="stack-group-label">Systems</div>
+            <div class="stack-pills">
+              <span class="pill">Rust</span>
+              <span class="pill">C</span>
+              <span class="pill">WASM</span>
+              <span class="pill">Linux</span>
+              <span class="pill">eBPF</span>
+            </div>
+          </div>
+          <div class="stack-group reveal-card">
+            <div class="stack-group-label">AI / ML</div>
+            <div class="stack-pills">
+              <span class="pill">Python</span>
+              <span class="pill">PyTorch</span>
+              <span class="pill">Transformers</span>
+              <span class="pill">ONNX</span>
+              <span class="pill">CUDA</span>
+            </div>
+          </div>
+          <div class="stack-group reveal-card">
+            <div class="stack-group-label">Infrastructure</div>
+            <div class="stack-pills">
+              <span class="pill">Kubernetes</span>
+              <span class="pill">gRPC</span>
+              <span class="pill">etcd</span>
+              <span class="pill">Kafka</span>
+              <span class="pill">Nix</span>
+            </div>
+          </div>
+          <div class="stack-group reveal-card">
+            <div class="stack-group-label">Interfaces</div>
+            <div class="stack-pills">
+              <span class="pill">TypeScript</span>
+              <span class="pill">Go</span>
+              <span class="pill">REST</span>
+              <span class="pill">GraphQL</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================== ABOUT ======================== -->
+      <section id="about" class="section">
+        <div class="section-label">04 — About</div>
+        <h2>About AmoebaX</h2>
+        <div class="about-layout">
+          <p class="about-text">
+            AmoebaX is an independent research and engineering effort focused on
+            infrastructure, execution systems, artificial intelligence, and
+            open-source software. The name reflects the philosophy: organisms
+            that survive by adapting, not by being rigid.
+          </p>
+          <p class="about-text">
+            Everything built here is designed to be observable, composable, and
+            open. The work spans from low-level execution primitives to language
+            model research — connected by a shared belief that the best software
+            learns from its environment.
+          </p>
+        </div>
+      </section>
+
+      <!-- ======================== CTA ======================== -->
+      <section id="contact" class="section cta-section">
+        <div class="cta-inner reveal-card">
+          <div class="section-label">05 — Contact</div>
+          <h2>Let's build something that evolves</h2>
+          <p>
+            Interested in collaborating, contributing, or just talking
+            infrastructure and AI? Reach out.
+          </p>
+          <div class="cta-actions">
+            <a href="mailto:hello@amoebaX.dev" class="btn primary"
+              >Send a Message</a
+            >
+            <a href="https://github.com" target="_blank" class="btn secondary"
+              >Star on GitHub ↗</a
+            >
+          </div>
+        </div>
       </section>
     </main>
 
     <footer>
-      <p>AmoebaX</p>
-      <span>Building systems that evolve.</span>
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="logo-dot"></span>
+          AmoebaX
+        </div>
+        <span class="footer-tagline">Building systems that evolve.</span>
+        <div class="footer-links">
+          <a href="https://github.com" target="_blank">GitHub</a>
+          <a href="mailto:prathamadityasalhotra@gmail.com">Contact</a>
+        </div>
+      </div>
     </footer>
 
     <div class="cursor-glow"></div>
