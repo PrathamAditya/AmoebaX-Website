@@ -1,133 +1,108 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AmoebaX</title>
 
-    <link rel="stylesheet" href="styles.css">
-</head>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
 
-<body>
+  <body>
     <nav class="navbar">
-    <a href="#" class="logo">
+      <a href="#" class="logo">
         <span class="logo-dot"></span>
         AmoebaX
-    </a>
+      </a>
 
-    <div class="nav-links">
+      <div class="nav-links">
         <a href="#philosophy">Philosophy</a>
         <a href="#projects">Projects</a>
         <a href="#about">About</a>
-    </div>
+      </div>
     </nav>
     <div class="noise"></div>
 
     <main>
-
-    <section class="hero reveal">
-
-        <div class="badge">
-            Building systems that evolve
-        </div>
+      <section class="hero reveal">
+        <div class="badge">Building systems that evolve</div>
+        <div class="hero-particles"></div>
 
         <h1 class="brand">
-            <span class="amoeba">Amoeba</span>
+          <span class="amoeba">Amoeba</span>
+          <span class="x-wrapper">
+            <canvas id="particleCanvas"></canvas>
+            <span class="x-burst"></span>
             <span class="x-letter">X</span>
+          </span>
         </h1>
 
         <p>
-            Building adaptive software systems,
-            AI infrastructure,
-            and open-source technology
-            designed to evolve.
+          Building adaptive software systems, AI infrastructure, and open-source
+          technology designed to evolve.
         </p>
 
         <div class="actions">
-            <a href="#" class="btn primary">
-                Explore Projects
-            </a>
+          <a href="#" class="btn primary"> Explore Projects </a>
 
-            <a href="#" class="btn secondary">
-                GitHub
-            </a>
+          <a href="#" class="btn secondary"> GitHub </a>
         </div>
+      </section>
 
-    </section>
-
-    <section id="philosophy" class="section reveal">
-
+      <section id="philosophy" class="section reveal">
         <h2>Philosophy</h2>
 
         <div class="grid">
+          <article class="card">
+            <h3>Adapt</h3>
+            <p>Software should evolve with changing needs.</p>
+          </article>
 
-            <article class="card">
-                <h3>Adapt</h3>
-                <p>
-                    Software should evolve with changing needs.
-                </p>
-            </article>
+          <article class="card">
+            <h3>Learn</h3>
+            <p>Systems improve through feedback and iteration.</p>
+          </article>
 
-            <article class="card">
-                <h3>Learn</h3>
-                <p>
-                    Systems improve through feedback and iteration.
-                </p>
-            </article>
-
-            <article class="card">
-                <h3>Evolve</h3>
-                <p>
-                    Every project is an experiment toward something bigger.
-                </p>
-            </article>
-
+          <article class="card">
+            <h3>Evolve</h3>
+            <p>Every project is an experiment toward something bigger.</p>
+          </article>
         </div>
+      </section>
 
-    </section>
-
-    <section id="projects" class="section reveal">
-
+      <section id="projects" class="section reveal">
         <h2>Projects</h2>
 
         <div class="grid">
+          <article class="card project-card">
+            <h3>Execution Fabric</h3>
 
-            <article class="card project-card">
-                <h3>Execution Fabric</h3>
+            <p>
+              A low-level execution runtime designed to grow into a distributed
+              workflow engine.
+            </p>
 
-                <p>
-                    A low-level execution runtime designed
-                    to grow into a distributed workflow engine.
-                </p>
-
-                <span>In Development</span>
-            </article>
-
+            <span>In Development</span>
+          </article>
         </div>
+      </section>
 
-    </section>
-
-    <section id="about" class="section reveal">
-
+      <section id="about" class="section reveal">
         <h2>About</h2>
 
         <p class="about-text">
-            AmoebaX explores infrastructure,
-            execution systems, artificial intelligence,
-            and open-source software.
+          AmoebaX explores infrastructure, execution systems, artificial
+          intelligence, and open-source software.
         </p>
+      </section>
+    </main>
 
-    </section>
+    <footer>
+      <p>AmoebaX</p>
+      <span>Building systems that evolve.</span>
+    </footer>
 
-</main>
-
-<footer>
-    <p>AmoebaX</p>
-    <span>Building systems that evolve.</span>
-</footer>
-
-<div class="cursor-glow"></div>
-<script src="app.js"></script>
-
-</body>
+    <div class="cursor-glow"></div>
+    <script src="app.js"></script>
+  </body>
 </html>
